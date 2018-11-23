@@ -24,11 +24,11 @@ public class Player : Character
 		/// <summary>
 		/// DEBUG ONLY
 		/// </summary>
-		if(Input.GetKey(KeyCode.I))
+		if(Input.GetKeyDown(KeyCode.I))
 		{
 			_health.CurrentValue -= 10;
 		}
-		else if (Input.GetKey(KeyCode.O))
+		else if (Input.GetKeyDown(KeyCode.O))
 		{
 			_health.CurrentValue += 10;
 		}

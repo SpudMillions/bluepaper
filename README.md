@@ -5,9 +5,12 @@ A 2-D RPG game.
 
 ![player-movement](resources/player-movement.gif)
 
+### Player Health and Mana Bar
+
+![health-mana-bar](resources/health-mana-bar.gif)
+
 ### Next Up
 * GUI
-   * Health Bar
    * Action Bars
 * Attacks/Spells
 * Enemies
