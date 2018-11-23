@@ -8,41 +8,59 @@ public abstract class Character : MonoBehaviour {
 
 	[SerializeField] private float _speed;
 	protected Vector2 Direction;
-
+	private Rigidbody2D _myRigidBody;
 	private Animator _animator;
 
-	private void Start ()
+	public bool IsMoving
+	{
+		get { return Direction.x != 0 || Direction.y != 0; }
+	}
+
+	protected virtual void Start ()
 	{
 		_animator = GetComponent<Animator>();
+		_myRigidBody = GetComponent<Rigidbody2D>();
 	}
 	
 	protected virtual void Update ()
 	{
+		HandleLayers();
+	}
+
+	private void FixedUpdate()
+	{
 		Move();
 	}
-	
+
 	public void Move()
 	{
-		transform.Translate(Direction * _speed * Time.deltaTime);
-		
-		if (Direction.x != 0 || Direction.y != 0) //player is moving
+		_myRigidBody.velocity = Direction.normalized * _speed;
+	}
+
+	private void HandleLayers()
+	{
+		if (IsMoving)
 		{
-			AnimateMovement(Direction);
+			ActivateLayer("WalkLayer");
+			
+			//set animation params so player faces correct direction
+			_animator.SetFloat("horizontal", Direction.x);
+			_animator.SetFloat("vertical", Direction.y);
 		}
 		else
 		{
-			_animator.SetLayerWeight(1,0);
+			ActivateLayer("IdleLayer");
 		}
-		
-		
 	}
 
-	public void AnimateMovement(Vector2 direction)
+
+	public void ActivateLayer(string layerNameToActivate)
 	{
-		_animator.SetLayerWeight(1,1);
+		for (int i = 0; i < _animator.layerCount; i++)
+		{
+			_animator.SetLayerWeight(i,0);
+		}
 		
-		//set animation params so player faces correct direction
-		_animator.SetFloat("horizontal", direction.x);
-		_animator.SetFloat("vertical", direction.y);
+		_animator.SetLayerWeight(_animator.GetLayerIndex(layerNameToActivate),1);
 	}
 }
