@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -14,9 +15,12 @@ public class Player : Character
 	[SerializeField] GameObject[] spellPrefab;
 	[SerializeField] Transform[] exitPoints;
 	private int exitIndex = 2;
+	[SerializeField]private Block[] blocks;
+	public Transform MyTarget { get; set; }
 	
 	protected override void Start()
 	{
+		
 		_health.Initialize(_initialHealth,_initialHealth);
 		_mana.Initialize(_initialMana, _initialMana);
 		base.Start();
@@ -26,17 +30,7 @@ public class Player : Character
 	{
 		GetInput();
 		base.Update();
-		/// <summary>
-		/// DEBUG ONLY
-		/// </summary>
-		if(Input.GetKeyDown(KeyCode.I))
-		{
-			_health.CurrentValue -= 10;
-		}
-		else if (Input.GetKeyDown(KeyCode.O))
-		{
-			_health.CurrentValue += 10;
-		}
+		
 	}
 	
 	
@@ -67,7 +61,8 @@ public class Player : Character
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			if (!IsAttacking && !IsMoving)
+			BlockLineOfSight();
+			if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
 			{
 				AttackRoutine = StartCoroutine(Attack());
 			}
@@ -89,5 +84,27 @@ public class Player : Character
 	public void CastSpell()
 	{
 		Instantiate(spellPrefab[0], exitPoints[exitIndex].position, Quaternion.identity);
+	}
+
+	private bool InLineOfSight()
+	{
+		Vector3 targetDirection = (MyTarget.position - transform.position).normalized;
+		RaycastHit2D hit = Physics2D.Raycast(transform.position,targetDirection,Vector2.Distance(transform.position,MyTarget.transform.position), LayerMask.GetMask("Block"));
+		Debug.DrawRay(transform.position,MyTarget.transform.position, Color.red);
+		if (hit.collider == null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private void BlockLineOfSight()
+	{
+		foreach (var block in blocks)
+		{
+			block.Deactivate();
+		}
+		
+		blocks[exitIndex].Activate();
 	}
 }
