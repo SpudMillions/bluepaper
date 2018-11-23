@@ -9,16 +9,19 @@ public abstract class Character : MonoBehaviour {
 	[SerializeField] private float _speed;
 	protected Vector2 Direction;
 	private Rigidbody2D _myRigidBody;
-	private Animator _animator;
+	protected Animator Animator;
 
-	public bool IsMoving
+	protected bool IsAttacking;
+	protected Coroutine AttackRoutine;
+
+	protected bool IsMoving
 	{
 		get { return Direction.x != 0 || Direction.y != 0; }
 	}
 
 	protected virtual void Start ()
 	{
-		_animator = GetComponent<Animator>();
+		Animator = GetComponent<Animator>();
 		_myRigidBody = GetComponent<Rigidbody2D>();
 	}
 	
@@ -44,8 +47,14 @@ public abstract class Character : MonoBehaviour {
 			ActivateLayer("WalkLayer");
 			
 			//set animation params so player faces correct direction
-			_animator.SetFloat("horizontal", Direction.x);
-			_animator.SetFloat("vertical", Direction.y);
+			Animator.SetFloat("horizontal", Direction.x);
+			Animator.SetFloat("vertical", Direction.y);
+			
+			StopAttack();
+		}
+		else if (IsAttacking)
+		{
+			ActivateLayer("AttackLayer");
 		}
 		else
 		{
@@ -56,11 +65,21 @@ public abstract class Character : MonoBehaviour {
 
 	public void ActivateLayer(string layerNameToActivate)
 	{
-		for (int i = 0; i < _animator.layerCount; i++)
+		for (var i = 0; i < Animator.layerCount; i++)
 		{
-			_animator.SetLayerWeight(i,0);
+			Animator.SetLayerWeight(i,0);
 		}
 		
-		_animator.SetLayerWeight(_animator.GetLayerIndex(layerNameToActivate),1);
+		Animator.SetLayerWeight(Animator.GetLayerIndex(layerNameToActivate),1);
+	}
+
+	public void StopAttack()
+	{
+		if (AttackRoutine != null)
+		{
+			StopCoroutine(AttackRoutine);
+			IsAttacking = false;
+			Animator.SetBool("attack", IsAttacking);
+		}
 	}
 }

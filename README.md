@@ -9,6 +9,9 @@ A 2-D RPG game.
 
 ![health-mana-bar](resources/health-mana-bar.gif)
 
+### Range Attack
+![fireball](resources/fireball.gif)
+
 ### Next Up
 * GUI
    * Action Bars
