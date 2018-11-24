@@ -4,6 +4,8 @@ using UnityEditor.Build.Reporting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour {
 
 	[SerializeField] private float _speed;
@@ -13,6 +15,8 @@ public abstract class Character : MonoBehaviour {
 
 	protected bool IsAttacking;
 	protected Coroutine AttackRoutine;
+
+	[SerializeField] protected Transform hitBox;
 
 	protected bool IsMoving
 	{

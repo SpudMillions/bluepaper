@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Boo.Lang.Environments;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -63,14 +64,19 @@ public class Player : Character
 
 	private IEnumerator Attack(int spellIndex)
 	{
+			Transform currentTarget = MyTarget;
 			Spell spell = spellbook.CastSpell(spellIndex);
 			IsAttacking = true;
 			Animator.SetBool("attack",IsAttacking);
 
 			yield return new WaitForSeconds(spell.CastTime);
-		
-			SpellScript spellScript = Instantiate(spell.SpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-			spellScript.MyTarget = MyTarget;
+
+			if (currentTarget != null && InLineOfSight())
+			{
+				SpellScript spellScript = Instantiate(spell.SpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+				spellScript.MyTarget = currentTarget;
+			}
+			
 			StopAttack();	
 	}
 

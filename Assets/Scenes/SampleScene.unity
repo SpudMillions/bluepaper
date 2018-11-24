@@ -269,8 +269,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000030518, y: -160.4}
-  m_SizeDelta: {x: 800, y: 39.1}
+  m_AnchoredPosition: {x: -0.000030518, y: -132}
+  m_SizeDelta: {x: 800, y: 44.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &182020041
 CanvasRenderer:
@@ -667,8 +667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 72.78, y: 3.1875002}
-  m_SizeDelta: {x: 34.17, y: 26.32}
+  m_AnchoredPosition: {x: 73.26499, y: 2.3513}
+  m_SizeDelta: {x: 30.54, y: 18.838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &315386811
 MonoBehaviour:
@@ -925,6 +925,7 @@ GameObject:
   - component: {fileID: 575230809}
   - component: {fileID: 575230811}
   - component: {fileID: 575230810}
+  - component: {fileID: 575230812}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -951,8 +952,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.33, y: 0.0000090599}
-  m_SizeDelta: {x: 204.68, y: 39.1}
+  m_AnchoredPosition: {x: 3.7, y: -5.91}
+  m_SizeDelta: {x: 191.6, y: 27.29}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &575230810
 MonoBehaviour:
@@ -988,6 +989,17 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 575230808}
   m_CullTransparentMesh: 0
+--- !u!225 &575230812
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 575230808}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &672262939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1624,6 +1636,7 @@ GameObject:
   - component: {fileID: 1078277142}
   - component: {fileID: 1078277145}
   - component: {fileID: 1078277146}
+  - component: {fileID: 1078277147}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1645,10 +1658,6 @@ MonoBehaviour:
   _speed: 2
   _health: {fileID: 703844269}
   _mana: {fileID: 299925210}
-  spellPrefab:
-  - {fileID: 1572970303341474, guid: 126226a7806ed6d43a2c915caf74e55e, type: 2}
-  - {fileID: 1572970303341474, guid: 92ef5952a8b54ae4b91187d25888bc1d, type: 2}
-  - {fileID: 1572970303341474, guid: 7536e071a6d8efe4fb7a23b2beba0109, type: 2}
   exitPoints:
   - {fileID: 2068809737}
   - {fileID: 1989307627}
@@ -1762,6 +1771,47 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1078277147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1078277141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a96caa889c65f834ba898e09be20467f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spells:
+  - name: Fireball
+    damage: 5
+    icon: {fileID: 21300000, guid: bb388a571acf0c547ac8268ef5764285, type: 3}
+    speed: 5
+    castTime: 2.5
+    spellPrefab: {fileID: 1572970303341474, guid: 126226a7806ed6d43a2c915caf74e55e,
+      type: 2}
+    barColor: {r: 0.8962264, g: 0.12259703, b: 0.12259703, a: 1}
+  - name: Frostbolt
+    damage: 5
+    icon: {fileID: 21300000, guid: abb40a4c4221c5645bb335d3b8663af4, type: 3}
+    speed: 5
+    castTime: 1.5
+    spellPrefab: {fileID: 1572970303341474, guid: 92ef5952a8b54ae4b91187d25888bc1d,
+      type: 2}
+    barColor: {r: 0.2988608, g: 0.52990264, b: 0.8679245, a: 1}
+  - name: ArcaneOrb
+    damage: 5
+    icon: {fileID: 21300000, guid: 425ad666d19c6bc4eaaf597d1cc294f8, type: 3}
+    speed: 5
+    castTime: 0.5
+    spellPrefab: {fileID: 1572970303341474, guid: 7536e071a6d8efe4fb7a23b2beba0109,
+      type: 2}
+    barColor: {r: 0.8679245, g: 0.31523672, b: 0.8141514, a: 1}
+  castingBar: {fileID: 1495788951}
+  spellName: {fileID: 1876947870}
+  spellIcon: {fileID: 1759479323}
+  spellCastTime: {fileID: 315386812}
+  canvasGroup: {fileID: 575230812}
 --- !u!1 &1080857604
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,8 +2392,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -82.56, y: 3.125}
-  m_SizeDelta: {x: 20, y: 18.17}
+  m_AnchoredPosition: {x: -82.5, y: 0.8}
+  m_SizeDelta: {x: 18.26, y: 15.735}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473481722
 MonoBehaviour:
@@ -2411,8 +2461,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.07, y: 3.1249986}
-  m_SizeDelta: {x: 165.24, y: 18.17}
+  m_AnchoredPosition: {x: 9.66, y: 2.78}
+  m_SizeDelta: {x: 166.06, y: 11.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1495788951
 MonoBehaviour:
@@ -2864,8 +2914,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -3.05, y: 3.19}
-  m_SizeDelta: {x: 122.08, y: 26.31}
+  m_AnchoredPosition: {x: -5.7, y: 2.3514}
+  m_SizeDelta: {x: 127.39, y: 18.838}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1876947869
 MonoBehaviour:
