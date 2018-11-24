@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class GameManager : MonoBehaviour
 
 	private void ClickTarget()
 	{
-		if (Input.GetMouseButtonDown(0)) //left mouse button
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() ) //left mouse button
 		{
 			RaycastHit2D hit = Physics2D.Raycast
 				(
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
 			{
 				if (hit.collider.tag == "Enemy")
 				{
-					_player.MyTarget = hit.transform;
+					_player.MyTarget = hit.transform.GetChild(0);
 				}
 			}
 			else

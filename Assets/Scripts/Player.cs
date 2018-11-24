@@ -12,17 +12,18 @@ public class Player : Character
 	private float _initialMana = 100;
 	private float _initialHealth = 100;
 
-	[SerializeField] GameObject[] spellPrefab;
 	[SerializeField] Transform[] exitPoints;
 	private int exitIndex = 2;
 	[SerializeField]private Block[] blocks;
 	public Transform MyTarget { get; set; }
+	private SpellBook spellbook;
 	
 	protected override void Start()
 	{
 		
 		_health.Initialize(_initialHealth,_initialHealth);
 		_mana.Initialize(_initialMana, _initialMana);
+		spellbook = GetComponent<SpellBook>();
 		base.Start();
 	}
 
@@ -58,32 +59,29 @@ public class Player : Character
 			exitIndex = 1;
 			Direction += Vector2.right;
 		}
-
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			BlockLineOfSight();
-			if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
-			{
-				AttackRoutine = StartCoroutine(Attack());
-			}
-		}
 	}
 
-	private IEnumerator Attack()
+	private IEnumerator Attack(int spellIndex)
 	{
+			Spell spell = spellbook.CastSpell(spellIndex);
 			IsAttacking = true;
 			Animator.SetBool("attack",IsAttacking);
 
-			yield return new WaitForSeconds(3); //hard coded cat time, change later	
-			
-			CastSpell();
+			yield return new WaitForSeconds(spell.CastTime);
 		
+			SpellScript spellScript = Instantiate(spell.SpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+			spellScript.MyTarget = MyTarget;
 			StopAttack();	
 	}
 
-	public void CastSpell()
+	public void CastSpell(int spellIndex)
 	{
-		Instantiate(spellPrefab[0], exitPoints[exitIndex].position, Quaternion.identity);
+		BlockLineOfSight();
+		if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
+		{
+			AttackRoutine = StartCoroutine(Attack(spellIndex));
+		}
+		
 	}
 
 	private bool InLineOfSight()
@@ -106,5 +104,12 @@ public class Player : Character
 		}
 		
 		blocks[exitIndex].Activate();
+	}
+
+	public override void StopAttack()
+	{
+		spellbook.StopCasting();
+		
+		base.StopAttack();
 	}
 }

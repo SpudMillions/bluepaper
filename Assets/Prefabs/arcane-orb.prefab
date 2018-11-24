@@ -22,10 +22,10 @@ GameObject:
   - component: {fileID: 212982207561420884}
   - component: {fileID: 50682015729939048}
   - component: {fileID: 114569270556235562}
-  - component: {fileID: 61956542693882948}
-  - component: {fileID: 95004689843849496}
+  - component: {fileID: 95583944112390790}
+  - component: {fileID: 61539128476931094}
   m_Layer: 0
-  m_Name: fireball
+  m_Name: arcane-orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61956542693882948
+--- !u!61 &61539128476931094
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -76,20 +76,20 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.00000013411045}
+  m_Offset: {x: -0.010399818, y: 0.010399714}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.39, y: 0.24}
+    oldSize: {x: 0.75, y: 0.75}
     newSize: {x: 0.39, y: 0.24}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32776308, y: 0.16220382}
+  m_Size: {x: 0.0982815, y: 0.105214626}
   m_EdgeRadius: 0
---- !u!95 &95004689843849496
+--- !u!95 &95583944112390790
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 1572970303341474}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f29626133b93a38499d705ba8f9fd26f, type: 2}
+  m_Controller: {fileID: 9100000, guid: d3b8fae72c843a347850fa2928e72c39, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -155,7 +155,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 5a173c5dbde30db44a904740715b9d37, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1acf1d9c4af60b248b05883a1af7b513, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

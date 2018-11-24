@@ -73,7 +73,7 @@ public abstract class Character : MonoBehaviour {
 		Animator.SetLayerWeight(Animator.GetLayerIndex(layerNameToActivate),1);
 	}
 
-	public void StopAttack()
+	public virtual void StopAttack()
 	{
 		if (AttackRoutine != null)
 		{

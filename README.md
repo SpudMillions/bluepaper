@@ -12,13 +12,14 @@ A 2-D RPG game.
 ### Range Attack
 ![fireball](resources/fireball.gif)
 
+### Spell Bars and Casting
+![spellcast](resources/spellcast.gif)
+
 ### Next Up
-* GUI
-   * Action Bars
-* Attacks/Spells
 * Enemies
 * Player Stats
 * Quests
 * Items
 * World Drops
+* GUI Enhancements
 * Inventory System
