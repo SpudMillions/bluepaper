@@ -9,17 +9,19 @@ public class SpellScript : MonoBehaviour
 
 	[SerializeField] private float speed;
 
-	public Transform MyTarget;
+	public Transform MyTarget { get; private set; }
+	private int _damage;
 
 	// Use this for initialization
 	void Start ()
 	{
 		_myRigidBody = GetComponent<Rigidbody2D>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void Initialize (Transform target, int damage)
+	{
+		this.MyTarget = target;
+		this._damage = damage;
 	}
 
 	private void FixedUpdate()
@@ -41,6 +43,8 @@ public class SpellScript : MonoBehaviour
 	{
 		if (collision.tag == "HitBox" && collision.transform == MyTarget)
 		{
+			speed = 0;
+			collision.GetComponentInParent<Enemy>().TakeDamage(_damage);
 			GetComponent<Animator>().SetTrigger("Impact");
 			_myRigidBody.velocity = Vector2.zero;
 			MyTarget = null;

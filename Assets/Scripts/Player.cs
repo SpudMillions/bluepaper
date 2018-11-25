@@ -8,10 +8,8 @@ using UnityEngine.Serialization;
 
 public class Player : Character
 {
-	[SerializeField] private Stat _health;
 	[SerializeField] private Stat _mana;
 	private float _initialMana = 100;
-	private float _initialHealth = 100;
 
 	[SerializeField] Transform[] exitPoints;
 	private int exitIndex = 2;
@@ -22,7 +20,6 @@ public class Player : Character
 	protected override void Start()
 	{
 		
-		_health.Initialize(_initialHealth,_initialHealth);
 		_mana.Initialize(_initialMana, _initialMana);
 		spellbook = GetComponent<SpellBook>();
 		base.Start();
@@ -74,7 +71,7 @@ public class Player : Character
 			if (currentTarget != null && InLineOfSight())
 			{
 				SpellScript spellScript = Instantiate(spell.SpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-				spellScript.MyTarget = currentTarget;
+				spellScript.Initialize(currentTarget, spell.Damage);
 			}
 			
 			StopAttack();	
@@ -92,13 +89,17 @@ public class Player : Character
 
 	private bool InLineOfSight()
 	{
-		Vector3 targetDirection = (MyTarget.position - transform.position).normalized;
-		RaycastHit2D hit = Physics2D.Raycast(transform.position,targetDirection,Vector2.Distance(transform.position,MyTarget.transform.position), LayerMask.GetMask("Block"));
-		Debug.DrawRay(transform.position,MyTarget.transform.position, Color.red);
-		if (hit.collider == null)
+		if (MyTarget != null)
 		{
-			return true;
+			Vector3 targetDirection = (MyTarget.position - transform.position).normalized;
+			RaycastHit2D hit = Physics2D.Raycast(transform.position,targetDirection,Vector2.Distance(transform.position,MyTarget.transform.position), LayerMask.GetMask("Block"));
+			Debug.DrawRay(transform.position,MyTarget.transform.position, Color.red);
+			if (hit.collider == null)
+			{
+				return true;
+			}
 		}
+		
 		return false;
 	}
 
